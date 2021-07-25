@@ -134,6 +134,7 @@ public class Account {
 	    HttpEntity<Account> entity = new HttpEntity<Account>(account,headers);
 		RestTemplate restTemplate = new RestTemplate();
 		Account a = restTemplate.exchange(instanceUrl+ "/services/data/v51.0/sobjects/account/", HttpMethod.POST, entity, Account.class).getBody();
-		return a;
+		account.setId(a.getId());
+		return account;
 	}
 }
