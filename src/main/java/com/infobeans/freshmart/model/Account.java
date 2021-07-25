@@ -22,7 +22,7 @@ import com.infobeans.freshmart.auth.AuthenticationResponse;
 public class Account {
 	@JsonProperty("attributes")
 	private Attribute attributes;
-	@JsonProperty("Id")
+	@JsonProperty("id")
 	private String id;
 	@JsonProperty("Name")
 	private String name;
@@ -86,12 +86,12 @@ public class Account {
 		this.attributes = attributes;
 	}
 
-	@JsonProperty("Id")
+	@JsonProperty("id")
 	public String getId() {
 		return id;
 	}
 
-	@JsonProperty("Id")
+	@JsonProperty("id")
 	public void setId(String id) {
 		this.id = id;
 	}
