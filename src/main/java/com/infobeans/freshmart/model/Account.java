@@ -163,7 +163,7 @@ public class Account {
 				a.setEmail__c((String) lhm.get("Email__c"));
 				a.setName((String) lhm.get("Name"));
 				a.setId((String) lhm.get("Id"));
-				a.setPhone((String) lhm.get("Name"));
+				a.setPhone((String) lhm.get("Phone"));
 				a.setPassword__c(password);
 				a.setAddress__c((String) lhm.get("Address__c"));
 
