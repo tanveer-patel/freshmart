@@ -17,4 +17,7 @@ public class SalesforceAPIService {
 		return new Account().createAccount(accessToken, instanceUrl, account);
 	}
 	
+	public Account loginAccount(String accessToken, String instanceUrl, String email, String password) {
+		return new Account().loginAccount(accessToken, instanceUrl, email, password);		
+	}
 }

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.infobeans.freshmart.auth.AccountResponse;
 import com.infobeans.freshmart.auth.AuthenticationResponse;
 import com.infobeans.freshmart.model.Account;
 import com.infobeans.freshmart.service.SalesforceAPIService;
@@ -23,6 +24,12 @@ public class SalesforceAPIController {
 		AuthenticationResponse authenticationResponse = salesforceAPIService.getLogin();
 		return salesforceAPIService.create(authenticationResponse.getAccess_token(),
 				authenticationResponse.getInstance_url(), a);
+	}
+	
+	@RequestMapping(value = "/login/{email}/{password}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Account loginAccount(@PathVariable String email, @PathVariable String password) {
+		AuthenticationResponse authenticationResponse = salesforceAPIService.getLogin();
+		return salesforceAPIService.loginAccount(authenticationResponse.getAccess_token(), authenticationResponse.getInstance_url(), email, password);
 	}
 
 //@RequestMapping(value = "/createAccountApex", method = RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
