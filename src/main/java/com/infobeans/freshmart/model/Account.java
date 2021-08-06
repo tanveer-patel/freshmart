@@ -1,7 +1,9 @@
 package com.infobeans.freshmart.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpEntity;
@@ -35,11 +37,19 @@ public class Account {
 	private String password__c;
 	@JsonProperty("Address__c")
 	private String address__c;
+@JsonProperty("Type")
+	private String type;
 
 	public String getEmail__c() {
 		return email__c;
 	}
+public String getType() {
+		return type;
+	}
 
+	public void setType(String type) {
+		this.type = type;
+	}
 	public void setEmail__c(String email__c) {
 		this.email__c = email__c;
 	}
@@ -172,5 +182,29 @@ public class Account {
 				return null;
 		} else
 			return null;
+	}
+
+public List<Account> getAccounts(String accessToken, String instanceUrl){
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
+		headers.set("Authorization", "Bearer " + accessToken);
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params,
+				headers);
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity salesforceTestData = restTemplate.exchange(instanceUrl+ "/services/data/v51.0/query/?q=SELECT+Id,Name,Type+From+Account", HttpMethod.GET, request, AccountResponse.class);
+
+		AccountResponse ar = (AccountResponse) salesforceTestData.getBody();
+		List<Account> l = new ArrayList<Account>();
+		
+		for(int i=0;i<ar.getRecords().size(); i++) {
+				LinkedHashMap<String, Object> lhm = (LinkedHashMap<String, Object>) ar.getRecords().get(i);
+				Account a = new Account();
+				a.setName((String) lhm.get("Name"));
+				a.setId((String) lhm.get("Id"));
+				a.setType((String) lhm.get("Type"));
+				l.add(a);
+		}
+		return l;
 	}
 }

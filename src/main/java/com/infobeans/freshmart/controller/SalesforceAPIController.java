@@ -1,5 +1,7 @@
 package com.infobeans.freshmart.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +32,12 @@ public class SalesforceAPIController {
 	public Account loginAccount(@PathVariable String email, @PathVariable String password) {
 		AuthenticationResponse authenticationResponse = salesforceAPIService.getLogin();
 		return salesforceAPIService.loginAccount(authenticationResponse.getAccess_token(), authenticationResponse.getInstance_url(), email, password);
+	}
+
+@RequestMapping(value = "/account", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Account> getAccounts() {
+		AuthenticationResponse authenticationResponse = salesforceAPIService.getLogin();
+		return salesforceAPIService.getAccounts(authenticationResponse.getAccess_token(), authenticationResponse.getInstance_url());
 	}
 
 //@RequestMapping(value = "/createAccountApex", method = RequestMethod.POST,  produces=MediaType.APPLICATION_JSON_VALUE)
