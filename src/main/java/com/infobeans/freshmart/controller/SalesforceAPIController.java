@@ -44,7 +44,7 @@ public class SalesforceAPIController {
 				authenticationResponse.getInstance_url());
 	}
 
-	@RequestMapping(value = "/file", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/file", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public String getFiles(@RequestPart String path) throws IOException {
 		return salesforceAPIService.getFile(path.toString());
 	}
